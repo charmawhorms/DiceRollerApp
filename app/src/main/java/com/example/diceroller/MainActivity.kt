@@ -59,6 +59,9 @@ fun DiceRollerApp() {
 fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
     var resultForDiceOne by remember { mutableStateOf(1) }
     var resultForDiceTwo by remember { mutableStateOf(1) }
+    val text = remember { mutableStateOf("") }
+
+    //Text(text = text.value ?: "")
 
     var imageResourceForDiceOne = when (resultForDiceOne) {
         1 -> R.drawable.dice_1
@@ -93,10 +96,11 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
         Spacer(modifier = Modifier.height(16.dp))
 
         Button(onClick = { resultForDiceOne = (1..6).random()
-            resultForDiceTwo = (1..6).random() }) {
+            resultForDiceTwo = (1..6).random()
+            text.value = "You rolled: ${resultForDiceOne + resultForDiceTwo}"}) {
             Text(stringResource(R.string.roll), modifier = Modifier.padding(6.dp),
                 style = TextStyle(
-                    color = Color.Yellow,
+                    color = Color.White,
                     fontSize = 16.sp
                 )
             )
@@ -104,7 +108,11 @@ fun DiceWithButtonAndImage(modifier: Modifier = Modifier) {
 
         Spacer(modifier = Modifier.height(16.dp))
 
-        Text(text = "You rolled: ${resultForDiceOne + resultForDiceTwo}")
+        Text(text = text.value,
+            style = TextStyle(
+            color = Color.Blue,
+            fontSize = 18.sp
+        ))
     }
 
 }
